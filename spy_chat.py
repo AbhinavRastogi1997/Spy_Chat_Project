@@ -2,7 +2,10 @@
 
 from spy_details import spy,Spy,friend,Chat_Message  #importing various spy details from the file spy_details
 from steganography.steganography import Steganography #importing the Steganography module
-from colorama import Fore  #importing Fore from Coloroma
+from colorama import init
+init()
+from colorama import Fore, Back, Style   #importing Fore from Coloroma
+
 
 
 
@@ -141,13 +144,11 @@ def read_message():  #Defining a function to read a message sent by the sender
 def read_chat_history():   #Defining a function to read the chat history
     chat_with=select_a_friend()  #Calling the select a friend function to get the index position of the friend to read the chat history
 
-
-    for chat in friend[chat_with].chats:  #Printing out the chat history using for loop
+    for chat in friend[chat_with].chats:
         if chat.sent_by_me:
-            print ((Fore.BLUE+'[%s]')+(Fore.RED+ '%s')+':'+(Fore.BLACK+'%s') % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message))
+            print (Fore.BLUE+'[%s]'+Fore.RED+' %s:'+Fore.BLACK+' %s') % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message)
         else:
-
-            print ((Fore.BLUE+'[%s]')+ (Fore.RED+'%s')+'said:'+(Fore.BLACK+'%s') % (chat.time.strftime("%d %B %Y"), friend[chat_with].name, chat.message))
+            print (Fore.BLUE+'[%s]'+Fore.RED+ '%s said:'+Fore.BLACK+' %s') % (chat.time.strftime("%d %B %Y"), friend[chat_with].name, chat.message)
 
 
 def start_chat(spy):  #Defining a function to start the spy chat
@@ -193,12 +194,12 @@ def start_chat(spy):  #Defining a function to start the spy chat
 
                 if menu_choice == 6:
                     print"You chose to close the application."
-                    exit() #Using the exit function to close the application
+                    show_menu=False #Using the exit function to close the application
             else:
                 print"Choose a valid menu."
 
 
-            show_menu=False
+
 
     else:
         print"This is not a valid spy-age."
@@ -213,14 +214,14 @@ elif ans.upper()=='N':
 
     spy=Spy("","",0,0.0) #Using the constructor to initialize various variables of the object spy of Spy class
 
-    spy_name=raw_input("What is your name?") #Taking input of the spy name
+    spy.name=raw_input("What is your name?") #Taking input of the spy name
 
     if len(spy.name)>0:
-        spy_salutation=raw_input("What would you like to be called Mr./Mrs ?")#Taking input of the spy salutation
-        spy_age=raw_input("What is your age ?")#Taking input of the spy age
-        spy_age=int(spy_age)
-        spy_rating=raw_input("What is your rating?")#Taking input of spy rating
-        spy_rating=float(spy_rating)
+        spy.salutation=raw_input("What would you like to be called Mr./Mrs ?")#Taking input of the spy salutation
+        spy.age=raw_input("What is your age ?")#Taking input of the spy age
+        spy.age=int(spy.age)
+        spy.rating=raw_input("What is your rating?")#Taking input of spy rating
+        spy.rating=float(spy.rating)
         spy_is_online=True
         start_chat(spy)#Calling the start chat function to start the chat
 
